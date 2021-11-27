@@ -1,11 +1,10 @@
 package com.example.spalanie;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 
-import com.example.spalanie.ui.NewDataFragment;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.fragment.app.FragmentTransaction;
@@ -17,11 +16,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.spalanie.databinding.ActivityMainBinding;
+import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    private ActivityMainBinding binding;
+    ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +37,15 @@ public class MainActivity extends AppCompatActivity {
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
 
-                NewDataFragment newDataFragment = new NewDataFragment();
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.nav_host_fragment_content_main, newDataFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
+//                NewDataActivity newDataActivity = new NewDataActivity();
+//                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//                transaction.replace(R.id.nav_host_fragment_content_main, newDataActivity);
+//                transaction.addToBackStack(null);
+//                transaction.commit();
+
+                Intent myIntent = new Intent(MainActivity.this, NewDataActivity.class);
+                MainActivity.this.startActivity(myIntent);
+
             }
         });
         DrawerLayout drawer = binding.drawerLayout;
@@ -55,6 +59,12 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+
+    }
+
+    public void dataSavedMessage() {
+
     }
 
     @Override

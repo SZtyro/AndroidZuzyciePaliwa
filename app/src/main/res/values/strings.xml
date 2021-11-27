@@ -10,4 +10,10 @@
     <string name="menu_home">Home</string>
     <string name="menu_statistics">Statistics</string>
     <string name="save">Save</string>
+    <string name="odometer_status">Odometer status</string>
+    <string name="new_data">New data</string>
+    <string name="fuel_volume">Fuel volume</string>
+    <string name="date">Date</string>
+    <string name="type">Type</string>
+    <string name="remarks">Remarks</string>
 </resources>
