@@ -15,4 +15,36 @@ public class RefuelData implements Serializable {
         this.refuelDate = refuelDate;
         this.remarks = remarks;
     }
+
+    public int getOdometer() {
+        return odometer;
+    }
+
+    public void setOdometer(int odometer) {
+        this.odometer = odometer;
+    }
+
+    public int getFuelVolume() {
+        return fuelVolume;
+    }
+
+    public void setFuelVolume(int fuelVolume) {
+        this.fuelVolume = fuelVolume;
+    }
+
+    public Date getRefuelDate() {
+        return refuelDate;
+    }
+
+    public void setRefuelDate(Date refuelDate) {
+        this.refuelDate = refuelDate;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
 }

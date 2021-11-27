@@ -48,7 +48,7 @@ public class NewDataActivity extends AppCompatActivity {
 
     private EditText refuelDate, odometer, fuelVolume, remarks;
 
-    private static final String fileName = "applicationData1";
+
     final Calendar myCalendar = Calendar.getInstance();
 
     @Override
@@ -89,30 +89,37 @@ public class NewDataActivity extends AppCompatActivity {
 
         saveButton.setOnClickListener(view -> {
             try {
+                Context context = getApplicationContext();
                 JSONArray l;
                 try {
-                    l = openFile();
+                    l = FileHelper.openFile(context);
                 } catch (FileNotFoundException ex) {
-                    createFile();
-                    l = openFile();
+                    FileHelper.createFile(context);
+                    l = FileHelper.openFile(context);
                 }
 
-                RefuelData data = new RefuelData(
-                        Integer.decode(odometer.getText().toString()),
-                        Integer.decode(fuelVolume.getText().toString()),
-                        new Date(myCalendar.getTime().getTime()),
-                        remarks.getText().toString()
-                );
-                Gson gson = new Gson();
-                String jsonString = gson.toJson(data);
+//                RefuelData data = new RefuelData(
+//                        Integer.decode(odometer.getText().toString()),
+//                        Integer.decode(fuelVolume.getText().toString()),
+//                        new Date(myCalendar.getTime().getTime()),
+//                        remarks.getText().toString()
+//                );
+//                Gson gson = new Gson();
+                JSONObject object = new JSONObject();
+                object.put("refuelDate", myCalendar.getTime().getTime());
+                object.put("odometer", Integer.decode(odometer.getText().toString()));
+                object.put("fuelVolume", Integer.decode(fuelVolume.getText().toString()));
+                object.put("remarks", remarks.getText().toString());
+                //String jsonString = gson.toJson(data);
 //                GsonBuilder builder = new GsonBuilder();
 
-                l.put(new JSONObject(jsonString));
-                saveFile(l);
+                l.put(object);
+                FileHelper.saveFile(l, context);
 
 
 //                Snackbar.make(((MainActivity)this.getParent()).binding.getRoot().getRootView(), "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .show();
+                
                 this.finish();
 
             } catch (FileNotFoundException e) {
@@ -131,42 +138,7 @@ public class NewDataActivity extends AppCompatActivity {
         refuelDate.setText(sdf.format(myCalendar.getTime()));
     }
 
-    private JSONArray openFile() throws FileNotFoundException, JSONException {
-        //Stary plik ma inne pola
-        return new JSONArray(SerializationUtils.deserialize(getApplicationContext().openFileInput(fileName)).toString());
 
-    }
-
-    private void saveFile(JSONArray object) {
-        FileOutputStream outputStream = null;
-        try {
-            System.out.println("Saving file:");
-            System.out.println("\n" + object.toString(2));
-            outputStream = getApplicationContext().openFileOutput(fileName, Context.MODE_PRIVATE);
-            outputStream.write(SerializationUtils.serialize(object.toString()));
-            outputStream.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    private void createFile() {
-
-        File file = new File(getApplicationContext().getFilesDir(), fileName);
-        try {
-            file.createNewFile();
-            JSONArray arr = new JSONArray();
-            saveFile(arr);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
 
 
 }
