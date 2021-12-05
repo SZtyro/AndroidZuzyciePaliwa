@@ -12,20 +12,6 @@
             android:layout_height="match_parent">
 
             <EditText
-                android:id="@+id/refuel_odometer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:ems="10"
-                android:hint="@string/fuel_volume"
-                android:inputType="number"
-                app:layout_constraintBottom_toTopOf="@+id/refuel_remarks"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <EditText
                 android:id="@+id/refuel_fuel_volume"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -33,9 +19,23 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 android:ems="10"
+                android:hint="@string/fuel_volume"
+                android:inputType="numberDecimal"
+                app:layout_constraintBottom_toTopOf="@+id/refuel_remarks"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <EditText
+                android:id="@+id/refuel_odometer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:ems="10"
                 android:hint="@string/odometer_status"
-                android:inputType="number"
-                app:layout_constraintBottom_toTopOf="@+id/refuel_odometer"
+                android:inputType="numberDecimal"
+                app:layout_constraintBottom_toTopOf="@+id/refuel_fuel_volume"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +67,7 @@
                 android:cursorVisible="false"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
-                app:layout_constraintBottom_toTopOf="@+id/refuel_fuel_volume"
+                app:layout_constraintBottom_toTopOf="@+id/refuel_odometer"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                  />

@@ -98,20 +98,37 @@ public class NewDataActivity extends AppCompatActivity {
                     l = FileHelper.openFile(context);
                 }
 
-//                RefuelData data = new RefuelData(
-//                        Integer.decode(odometer.getText().toString()),
-//                        Integer.decode(fuelVolume.getText().toString()),
-//                        new Date(myCalendar.getTime().getTime()),
-//                        remarks.getText().toString()
-//                );
-//                Gson gson = new Gson();
+                float o = Float.parseFloat(odometer.getText().toString());
+                float fv = Float.parseFloat(fuelVolume.getText().toString());
+                float result = 0.0f;
+                try {
+
+
+
+
+
+
+                        JSONObject object1 = l.getJSONObject(l.length() - 1);
+                        float odometer1 = Float.parseFloat(String.valueOf(object1.get("odometer")));
+                        //float fuelVolume1 = (float) object.get("fuelVolume");
+
+                        float distance = o - odometer1;
+                        result = (100 * fv) / distance;
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
                 JSONObject object = new JSONObject();
                 object.put("refuelDate", myCalendar.getTime().getTime());
-                object.put("odometer", Integer.decode(odometer.getText().toString()));
-                object.put("fuelVolume", Integer.decode(fuelVolume.getText().toString()));
+                object.put("odometer", o );
+                object.put("fuelVolume", fv);
                 object.put("remarks", remarks.getText().toString());
+                object.put("consumption", result);
                 //String jsonString = gson.toJson(data);
 //                GsonBuilder builder = new GsonBuilder();
+
+
 
                 l.put(object);
                 FileHelper.saveFile(l, context);
@@ -119,7 +136,7 @@ public class NewDataActivity extends AppCompatActivity {
 
 //                Snackbar.make(((MainActivity)this.getParent()).binding.getRoot().getRootView(), "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .show();
-                
+
                 this.finish();
 
             } catch (FileNotFoundException e) {

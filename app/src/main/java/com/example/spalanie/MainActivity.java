@@ -41,24 +41,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(binding.appBarMain.toolbar);
 
 
-
-        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-
-//                NewDataActivity newDataActivity = new NewDataActivity();
-//                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//                transaction.replace(R.id.nav_host_fragment_content_main, newDataActivity);
-//                transaction.addToBackStack(null);
-//                transaction.commit();
-
-                Intent myIntent = new Intent(MainActivity.this, NewDataActivity.class);
-                MainActivity.this.startActivity(myIntent);
-
-            }
-        });
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
@@ -74,8 +56,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void dataSavedMessage() {
 
+
+    @Override
+    protected void onResumeFragments() {
+        super.onResumeFragments();
+
+        HalfCircle h = findViewById(R.id.halfCircle);
+        h.init();
     }
 
     @Override

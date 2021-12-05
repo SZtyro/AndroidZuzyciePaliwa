@@ -1,5 +1,6 @@
 package com.example.spalanie;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.example.spalanie.model.RefuelData;
+import com.example.spalanie.ui.entries.EntriesFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,14 +21,19 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class RefuelAdapter extends ArrayAdapter<JSONObject> {
-    public RefuelAdapter(@NonNull Context context, ArrayList<JSONObject> data) {
+
+    EntriesFragment fragment;
+
+    public RefuelAdapter(@NonNull Context context, ArrayList<JSONObject> data, EntriesFragment parent) {
         super(context, 0, data);
+        fragment = parent;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
         JSONObject report = getItem(position);
+
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.home_view_list_elem, parent, false);
@@ -35,14 +42,31 @@ public class RefuelAdapter extends ArrayAdapter<JSONObject> {
         TextView date = (TextView) convertView.findViewById(R.id.entries_elem_date);
         TextView odometer = (TextView) convertView.findViewById(R.id.entries_elem_odometer);
         TextView fuelVolume = (TextView) convertView.findViewById(R.id.entries_elem_fuel_volume);
+        TextView consumption = (TextView) convertView.findViewById(R.id.entries_consumption);
         try {
             DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT);
             date.setText(dateFormat.format(new Date(report.getLong("refuelDate"))));
-            odometer.setText(report.get("odometer").toString());
-            fuelVolume.setText(report.get("fuelVolume").toString());
+            odometer.setText(String.format("%s km", report.get("odometer").toString()));
+            fuelVolume.setText(String.format("%s l", report.get("fuelVolume").toString()));
+            consumption.setText(String.format("%s l/100km", report.get("consumption").toString()));
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        convertView.findViewById(R.id.entries_elem_delete).setOnClickListener(view -> {
+            System.out.println(position);
+            AlertDialog.Builder adb=new AlertDialog.Builder(getContext());
+            adb.setTitle(R.string.delete_ask);
+            adb.setMessage(R.string.sure_delete);
+            adb.setNegativeButton(R.string.cancel, null);
+            adb.setPositiveButton("Ok", (dialog, which) -> {
+                fragment.deleteElem(position);
+                notifyDataSetChanged();
+            });
+            adb.show();
+
+        });
+
 
 
         return convertView;

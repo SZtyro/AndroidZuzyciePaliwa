@@ -28,6 +28,7 @@ import org.json.JSONObject;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class EntriesFragment extends Fragment {
 
@@ -36,6 +37,9 @@ public class EntriesFragment extends Fragment {
 
     private ListView listView;
     private RefuelAdapter adapter;
+
+    ArrayList<JSONObject> dataList = new ArrayList<>();
+    JSONArray array = new JSONArray();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -54,29 +58,47 @@ public class EntriesFragment extends Fragment {
 //        });
 
         listView = binding.entriesList;
+        refreshData();
+
+        return root;
+    }
+
+    void refreshData(){
         try {
-            ArrayList<JSONObject> dataList = new ArrayList<>();
-            JSONArray array = FileHelper.openFile(getContext());
+
+            array = FileHelper.openFile(getContext());
 
             //Gson gson = new Gson();
-            for (int i = 0; i < array.length(); i++) {
+            //for (int i = array.length() - 1; i >= 0; i--) {
+            dataList.clear();
+            for (int i = 0; i < array.length() ; i++) {
 
                 dataList.add(array.getJSONObject(i));
             }
-            adapter = new RefuelAdapter(getContext(), dataList);
+            adapter = new RefuelAdapter(getContext(), dataList, this);
 
             listView.setAdapter(adapter);
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
-        return root;
+        Collections.reverse(dataList);
     }
 
+    public void deleteElem(int position){
+        int realPosition = (dataList.size() - position) - 1;
+        dataList.remove(position);
+        array.remove(realPosition);
+        FileHelper.saveFile(array, getContext());
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshData();
+    }
 
     @Override
     public void onDestroyView() {

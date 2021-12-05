@@ -20,7 +20,7 @@ public class FileHelper {
 
     }
 
-    static void saveFile(JSONArray object, Context context) {
+    public static void saveFile(JSONArray object, Context context) {
         FileOutputStream outputStream = null;
         try {
             System.out.println("Saving file:");
