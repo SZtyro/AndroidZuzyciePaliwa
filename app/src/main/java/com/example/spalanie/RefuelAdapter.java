@@ -17,12 +17,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class RefuelAdapter extends ArrayAdapter<JSONObject> {
 
     EntriesFragment fragment;
+    private static final DecimalFormat df = new DecimalFormat("0.00");
 
     public RefuelAdapter(@NonNull Context context, ArrayList<JSONObject> data, EntriesFragment parent) {
         super(context, 0, data);
@@ -43,12 +45,14 @@ public class RefuelAdapter extends ArrayAdapter<JSONObject> {
         TextView odometer = (TextView) convertView.findViewById(R.id.entries_elem_odometer);
         TextView fuelVolume = (TextView) convertView.findViewById(R.id.entries_elem_fuel_volume);
         TextView consumption = (TextView) convertView.findViewById(R.id.entries_consumption);
+        TextView location = (TextView) convertView.findViewById(R.id.entries_elem_location);
         try {
             DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT);
             date.setText(dateFormat.format(new Date(report.getLong("refuelDate"))));
             odometer.setText(String.format("%s km", report.get("odometer").toString()));
-            fuelVolume.setText(String.format("%s l", report.get("fuelVolume").toString()));
-            consumption.setText(String.format("%s l/100km", report.get("consumption").toString()));
+            fuelVolume.setText(String.format("%s l",(df.format(report.get("fuelVolume")))));
+            consumption.setText(String.format("%s", (df.format(report.get("consumption")))));
+            location.setText(report.get("location").toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -73,6 +73,20 @@
                  />
 
             <EditText
+                android:id="@+id/refuel_location"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                android:ems="10"
+                android:hint="@string/location"
+                app:layout_constraintBottom_toTopOf="@+id/refuel_date"
+                app:layout_constraintEnd_toStartOf="@+id/refuel_location_button"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+            <EditText
                 android:id="@+id/refuel_remarks"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -85,6 +99,19 @@
                 app:layout_constraintBottom_toTopOf="@+id/save_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
+
+            <ImageButton
+                android:id="@+id/refuel_location_button"
+                style="@android:style/Widget.Material.ImageButton"
+                android:layout_width="48dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/roundedcorners"
+                app:layout_constraintBottom_toTopOf="@+id/refuel_date"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/refuel_location"
+                app:srcCompat="@drawable/ic_baseline_location_on_24" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

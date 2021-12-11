@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Spalanie</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Ustawienia</string>
+
+    <string name="menu_home">Podsumowanie</string>
+    <string name="menu_entries">Poprzednie zapisy</string>
+    <string name="save">Zapisz</string>
+    <string name="odometer_status">Stan licznika</string>
+    <string name="new_data">Nowe dane</string>
+    <string name="fuel_volume">Ilość paliwa</string>
+    <string name="date">Data</string>
+    <string name="type">Typ</string>
+    <string name="remarks">Uwagi</string>
+    <string name="sure_delete">Czy na pewno chcesz usunąć?</string>
+    <string name="delete_ask">Usunąć?</string>
+    <string name="cancel">Anuluj</string>
+    <string name="location">Lokalizacja</string>
+    <string name="cannot_find_localization">Nie znaleziono lokalizacji.</string>
+</resources>

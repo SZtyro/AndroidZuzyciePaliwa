@@ -19,4 +19,6 @@
     <string name="sure_delete">Are you sure you want to delete?</string>
     <string name="delete_ask">Delete?</string>
     <string name="cancel">Cancel</string>
+    <string name="location">Location</string>
+    <string name="cannot_find_localization">Cannot find localization.</string>
 </resources>
